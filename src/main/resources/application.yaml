@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: exampleApp
+  datasource:
+    username: postgres
+    password: postgres123
+    url: jdbc:postgresql://localhost:5432/postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+  profiles:
+    active: dev
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+server:
+  port: 8080
+
