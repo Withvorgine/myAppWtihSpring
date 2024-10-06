@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+import java.util.UUID;
 
 
 @Entity
@@ -15,13 +15,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "APP_USER")
-public class User implements Serializable {
+public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    public String id;
 
     @Column(name = "name")
     public String name;
+
     @Column(name = "lastname")
     public String lastname;
 
@@ -31,12 +31,14 @@ public class User implements Serializable {
     @Column(name = "phoneNo")
     public String phoneNo;
 
-    @Column(name = "amount")
-    public String amount;
-
     @Column(name = "bankAccountNumber")
     public String bankAccountNumber;
 
-    @Column(name = "IBAN")
-    public String IBAN;
+    public void generateBankAccountNumber() {
+        this.bankAccountNumber = UUID.randomUUID().toString();
+    }
+
+    public void generateId (){
+        this.id = UUID.randomUUID().toString();
+    }
 }

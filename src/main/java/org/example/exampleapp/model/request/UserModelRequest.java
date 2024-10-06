@@ -1,4 +1,4 @@
-package org.example.exampleapp.model;
+package org.example.exampleapp.model.request;
 
 import lombok.*;
 
@@ -12,7 +12,5 @@ public class UserModelRequest {
     private String lastname;
     private String email;
     private String phoneNo;
-    private String amount;
     private String bankAccountNumber;
-    private String IBAN;
 }
