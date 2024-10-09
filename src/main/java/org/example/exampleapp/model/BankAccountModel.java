@@ -19,6 +19,6 @@ public class BankAccountModel {
     @Column(name = "iban")
     private String iban;
 
-
+    private String userId;
 
 }

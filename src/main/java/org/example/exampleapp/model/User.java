@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Random;
 import java.util.UUID;
 
 
@@ -39,6 +40,10 @@ public class User {
     }
 
     public void generateId (){
-        this.id = UUID.randomUUID().toString();
+        Random rand = new Random();
+        int j = rand.nextInt(1000000,100000000);
+        String customerStartLetter  = "C";
+        this.id = customerStartLetter + j;
+        System.out.println(this.id);
     }
 }

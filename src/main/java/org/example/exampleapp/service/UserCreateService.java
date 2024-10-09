@@ -1,6 +1,7 @@
 package org.example.exampleapp.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.exampleapp.model.User;
 import org.example.exampleapp.model.request.UserModelRequest;
 import org.example.exampleapp.model.response.UserModelResponse;
@@ -9,6 +10,9 @@ import org.example.exampleapp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Random;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserCreateService {
@@ -16,6 +20,7 @@ public class UserCreateService {
     private final UserRepository userRepository;
     private final BankAccountRepository bankAccountRepository;
     private final WebClient webClient;
+    private final BankAccountService bankAccountService;
 
     public UserModelResponse createUser(UserModelRequest request) {
 
@@ -32,12 +37,11 @@ public class UserCreateService {
         try {
             user.generateBankAccountNumber();
             user.generateId();
-            userRepository.save(user);
+            log.info("User created: {}", user.getId());
 
-            //Posting create api another controller to create bank account
-            String url = "http://localhost:8080/api/bankAccount/" + user.getBankAccountNumber();
-            webClient.get()
-                    .uri(url);
+            userRepository.save(user);
+            //Posting bankAccountService to create bank account
+            bankAccountService.createBankAccount(user.getBankAccountNumber(),user.getId());
 
         } catch (Exception e) {
             userModelResponse.setResponseMessage("Error while creating user");
