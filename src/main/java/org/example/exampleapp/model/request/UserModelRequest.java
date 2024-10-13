@@ -13,4 +13,5 @@ public class UserModelRequest {
     private String email;
     private String phoneNo;
     private String bankAccountNumber;
+    private String country;
 }

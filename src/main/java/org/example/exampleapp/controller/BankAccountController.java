@@ -15,8 +15,8 @@ public class BankAccountController {
     private final BankAccountService bankAccountService;
 
     @GetMapping("{bankAccountId}")
-    public ResponseEntity<BankAccountResponse> createBankAccount(@PathVariable String bankAccountId,String userId) {
-        BankAccountResponse response = bankAccountService.createBankAccount(bankAccountId, userId);
+    public ResponseEntity<BankAccountResponse> createBankAccount(@PathVariable String bankAccountId,String userId,String country) {
+        BankAccountResponse response = bankAccountService.createBankAccount(bankAccountId, userId, country);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -35,6 +35,9 @@ public class User {
     @Column(name = "bankAccountNumber")
     public String bankAccountNumber;
 
+    @Column(name = "country")
+    public String country;
+
     public void generateBankAccountNumber() {
         this.bankAccountNumber = UUID.randomUUID().toString();
     }

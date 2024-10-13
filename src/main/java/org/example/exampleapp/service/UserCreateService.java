@@ -10,8 +10,6 @@ import org.example.exampleapp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Random;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -30,6 +28,7 @@ public class UserCreateService {
                 .email(request.getEmail())
                 .lastname(request.getLastname())
                 .phoneNo(request.getPhoneNo())
+                .country(request.getCountry())
                 .build();
 
         UserModelResponse userModelResponse = new UserModelResponse();
@@ -41,7 +40,7 @@ public class UserCreateService {
 
             userRepository.save(user);
             //Posting bankAccountService to create bank account
-            bankAccountService.createBankAccount(user.getBankAccountNumber(),user.getId());
+            bankAccountService.createBankAccount(user.getBankAccountNumber(),user.getId(),user.getCountry());
 
         } catch (Exception e) {
             userModelResponse.setResponseMessage("Error while creating user");
