@@ -10,6 +10,8 @@ import org.example.exampleapp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Date;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,6 +31,7 @@ public class UserCreateService {
                 .lastname(request.getLastname())
                 .phoneNo(request.getPhoneNo())
                 .country(request.getCountry())
+                .createdDate(new Date())
                 .build();
 
         UserModelResponse userModelResponse = new UserModelResponse();

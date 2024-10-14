@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 
+import java.util.Date;
 import java.util.Random;
 
 
@@ -27,6 +28,12 @@ public class BankAccountModel {
 
     @Column(name = "country")
     private String country;
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @Column(name = "amount")
+    private double amount;
 
 
     public void generateIban(String countryCode){

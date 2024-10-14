@@ -8,6 +8,7 @@ import org.example.exampleapp.model.response.BankAccountResponse;
 import org.example.exampleapp.repository.BankAccountRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Locale;
 
 @Slf4j
@@ -23,6 +24,8 @@ public class BankAccountService {
                 .id(bankAccountId)
                 .userId(userId)
                 .country(country)
+                .createdDate(new Date())
+                .amount(0)
                 .build();
 
 

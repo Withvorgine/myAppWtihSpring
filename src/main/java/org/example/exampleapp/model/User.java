@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
@@ -29,14 +30,17 @@ public class User {
     @Column(name = "email")
     public String email;
 
-    @Column(name = "phoneNo")
+    @Column(name = "phone_no")
     public String phoneNo;
 
-    @Column(name = "bankAccountNumber")
+    @Column(name = "bank_account_number")
     public String bankAccountNumber;
 
     @Column(name = "country")
     public String country;
+
+    @Column(name = "created_date")
+    public Date createdDate;
 
     public void generateBankAccountNumber() {
         this.bankAccountNumber = UUID.randomUUID().toString();
