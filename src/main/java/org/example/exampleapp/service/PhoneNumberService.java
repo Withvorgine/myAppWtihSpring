@@ -9,7 +9,7 @@ import org.example.exampleapp.model.request.PhoneNumberCreateRequest;
 import org.example.exampleapp.model.response.PhoneNumberCreateResponse;
 import org.example.exampleapp.model.response.PhoneNumberValidateResponse;
 import org.example.exampleapp.repository.PhoneNumberRepository;
-import org.postgresql.core.Tuple;
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -39,18 +39,16 @@ public class PhoneNumberService {
             throw new RuntimeException("Failed to save phone number");
         }
 
-        PhoneNumberCreateResponse phoneNumberCreateResponse = getPhoneNumberCreateResponse(phoneNumberCreateRequest);
-        return phoneNumberCreateResponse;
+        return getPhoneNumberCreateResponse(phoneNumberCreateRequest);
     }
 
     private PhoneNumberModel getPhoneNumberModel(PhoneNumberCreateRequest phoneNumberCreateRequest) {
-        PhoneNumberModel phoneNumber = PhoneNumberModel.builder()
+        return PhoneNumberModel.builder()
                 .Id(UUID.randomUUID().toString())
                 .phoneNumber(phoneNumberCreateRequest.getPhoneNumber())
                 .countryName(phoneNumberCreateRequest.getCountryName())
                 .phoneNumberStatus(PhoneNumberStatus.AVAILABLE.getPhoneNumberStatus())
                 .build();
-        return phoneNumber;
     }
 
     private PhoneNumberCreateResponse getPhoneNumberCreateResponse(PhoneNumberCreateRequest phoneNumberCreateRequest) {
@@ -64,8 +62,7 @@ public class PhoneNumberService {
         PhoneNumberValidateResponse phoneNumberValidateResponse = new PhoneNumberValidateResponse();
         PhoneNumberModel phoneNumberRecord = phoneNumberRepository.findByPhoneNumber(phoneNumberCreateRequest.getPhoneNumber());
         if (!ObjectUtils.isEmpty(phoneNumberRecord)) {
-            phoneNumberValidateResponse.setError("Your phone number already exists, phoneNumber: " + phoneNumberRecord.getPhoneNumber());
-            return phoneNumberValidateResponse.getError();
+            throw new RuntimeException("Your phone number already exists, phoneNumber: " + phoneNumberRecord.getPhoneNumber());
         }
         phoneNumberValidateResponse.setError("Validation successful you can add your phone number into the database: " + phoneNumberCreateRequest.getPhoneNumber());
         return phoneNumberValidateResponse.getError();
