@@ -7,9 +7,11 @@ import org.example.exampleapp.model.enums.CountryCode;
 import org.example.exampleapp.model.enums.PhoneNumberStatus;
 import org.example.exampleapp.model.request.PhoneNumberCreateRequest;
 import org.example.exampleapp.model.response.PhoneNumberCreateResponse;
+import org.example.exampleapp.model.response.PhoneNumberValidateResponse;
 import org.example.exampleapp.repository.PhoneNumberRepository;
 import org.postgresql.core.Tuple;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.UUID;
 
@@ -21,7 +23,8 @@ public class PhoneNumberService {
     private final PhoneNumberRepository phoneNumberRepository;
     public PhoneNumberCreateResponse createPhoneNumber(PhoneNumberCreateRequest phoneNumberCreateRequest) {
 
-        validatePhoneNumber(phoneNumberCreateRequest);
+        String validatePhoneNumber = validatePhoneNumber(phoneNumberCreateRequest);
+        System.out.println(validatePhoneNumber);
         PhoneNumberModel phoneNumber = getPhoneNumberModel(phoneNumberCreateRequest);
         switch (phoneNumber.getCountryName()){
             case "TR" :
@@ -57,7 +60,14 @@ public class PhoneNumberService {
         return phoneNumberCreateResponse;
     }
 
-    public void validatePhoneNumber(PhoneNumberCreateRequest phoneNumberCreateRequest) {
-        boolean byPhoneNumber = phoneNumberRepository.findByPhoneNumber(phoneNumberCreateRequest.getPhoneNumber());
+    public String validatePhoneNumber(PhoneNumberCreateRequest phoneNumberCreateRequest) {
+        PhoneNumberValidateResponse phoneNumberValidateResponse = new PhoneNumberValidateResponse();
+        PhoneNumberModel phoneNumberRecord = phoneNumberRepository.findByPhoneNumber(phoneNumberCreateRequest.getPhoneNumber());
+        if (!ObjectUtils.isEmpty(phoneNumberRecord)) {
+            phoneNumberValidateResponse.setError("Your phone number already exists, phoneNumber: " + phoneNumberRecord.getPhoneNumber());
+            return phoneNumberValidateResponse.getError();
+        }
+        phoneNumberValidateResponse.setError("Validation successful you can add your phone number into the database: " + phoneNumberCreateRequest.getPhoneNumber());
+        return phoneNumberValidateResponse.getError();
     }
 }

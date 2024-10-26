@@ -8,5 +8,5 @@ import java.util.UUID;
 public interface PhoneNumberRepository extends JpaRepository<PhoneNumberModel, UUID> {
     PhoneNumberModel findById(String id);
 
-    boolean findByPhoneNumber(long phoneNumber);
+    PhoneNumberModel findByPhoneNumber(long phoneNumber);
 }
