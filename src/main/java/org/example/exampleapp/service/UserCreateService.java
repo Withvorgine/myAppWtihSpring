@@ -6,7 +6,11 @@ import org.example.exampleapp.model.User;
 import org.example.exampleapp.model.request.UserModelRequest;
 import org.example.exampleapp.model.response.UserModelResponse;
 import org.example.exampleapp.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ses.model.*;
+import software.amazon.awssdk.services.ses.SesClient;
 
 
 import java.util.Date;
@@ -18,6 +22,10 @@ public class UserCreateService {
 
     private final UserRepository userRepository;
     private final BankAccountService bankAccountService;
+    private final PhoneNumberService phoneNumberService;
+    private final EmailService emailService;
+
+
 
     public UserModelResponse createUser(UserModelRequest request) {
 
@@ -30,6 +38,13 @@ public class UserCreateService {
                 .country(request.getCountry())
                 .createdDate(new Date())
                 .build();
+
+        boolean phoneNumberValidate = phoneNumberService.validatePhoneNumberIfExistInDB(request.getPhoneNo());
+        boolean isPhoneNumberAvailable = phoneNumberService.validatePhoneNumberIfAvailable(request.getPhoneNo());
+        if (!phoneNumberValidate || !isPhoneNumberAvailable) {
+            throw new RuntimeException("Invalid phone number");
+        }
+        phoneNumberService.changeStatusToTaken(request.getPhoneNo());
 
         UserModelResponse userModelResponse = new UserModelResponse();
 
@@ -51,6 +66,14 @@ public class UserCreateService {
         }
         userModelResponse.setId(user.getId());
         userModelResponse.setResponseMessage("customer successfully created");
+
+        SendEmailRequest sendEmailRequest = emailService.getSendEmailRequest(user);
+
+        SesClient sesClientBuild = SesClient.builder().region(Region.EU_CENTRAL_1).build();
+        sesClientBuild.sendEmail(sendEmailRequest);
+
         return userModelResponse;
     }
+
+
 }
