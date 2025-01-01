@@ -6,7 +6,7 @@ import org.example.exampleapp.model.User;
 import org.example.exampleapp.model.request.UserModelRequest;
 import org.example.exampleapp.model.response.UserModelResponse;
 import org.example.exampleapp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.model.*;

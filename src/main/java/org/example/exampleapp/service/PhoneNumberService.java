@@ -13,6 +13,7 @@ import org.example.exampleapp.repository.PhoneNumberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -48,6 +49,7 @@ public class PhoneNumberService {
                 .phoneNumber(phoneNumberCreateRequest.getPhoneNumber())
                 .countryName(phoneNumberCreateRequest.getCountryName())
                 .phoneNumberStatus(PhoneNumberStatus.AVAILABLE.getPhoneNumberStatus())
+                .createdDate(new Date())
                 .build();
     }
 
@@ -63,8 +65,25 @@ public class PhoneNumberService {
         PhoneNumberModel phoneNumberRecord = phoneNumberRepository.findByPhoneNumber(phoneNumberCreateRequest.getPhoneNumber());
         if (!ObjectUtils.isEmpty(phoneNumberRecord)) {
             throw new RuntimeException("Your phone number already exists, phoneNumber: " + phoneNumberRecord.getPhoneNumber());
+
         }
         phoneNumberValidateResponse.setError("Validation successful you can add your phone number into the database: " + phoneNumberCreateRequest.getPhoneNumber());
         return phoneNumberValidateResponse.getError();
+    }
+
+    public boolean validatePhoneNumberIfExistInDB(String phoneNumber) {
+        PhoneNumberModel phoneNoInDatabase = phoneNumberRepository.findByPhoneNumber(phoneNumber);
+        return !ObjectUtils.isEmpty(phoneNoInDatabase);
+    }
+
+    public boolean validatePhoneNumberIfAvailable(String phoneNumber) {
+        PhoneNumberModel phoneNoInDatabase = phoneNumberRepository.findByPhoneNumber(phoneNumber);
+        return "Available".equalsIgnoreCase(phoneNoInDatabase.getPhoneNumberStatus());
+    }
+
+    public void changeStatusToTaken(String phoneNumber) {
+        PhoneNumberModel phoneNoInDatabase = phoneNumberRepository.findByPhoneNumber(phoneNumber);
+        phoneNoInDatabase.setPhoneNumberStatus(PhoneNumberStatus.TAKEN.getPhoneNumberStatus());
+
     }
 }

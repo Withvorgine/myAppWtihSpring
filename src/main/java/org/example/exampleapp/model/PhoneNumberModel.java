@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Data
 @Builder
@@ -23,11 +25,14 @@ public class PhoneNumberModel {
     String countryCode;
 
     @Column(name = "phoneno")
-    long phoneNumber;
+    String phoneNumber;
 
     @Column(name = "country")
     String countryName;
 
     @Column(name = "phone_number_status")
     String phoneNumberStatus;
+
+    @Column(name = "created_date")
+    Date createdDate;
 }

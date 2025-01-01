@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PhoneNumberCreateRequest {
-    private long phoneNumber;
+    private String phoneNumber;
     private String countryName;
 }
