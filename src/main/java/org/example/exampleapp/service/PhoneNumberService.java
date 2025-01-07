@@ -84,6 +84,5 @@ public class PhoneNumberService {
     public void changeStatusToTaken(String phoneNumber) {
         PhoneNumberModel phoneNoInDatabase = phoneNumberRepository.findByPhoneNumber(phoneNumber);
         phoneNoInDatabase.setPhoneNumberStatus(PhoneNumberStatus.TAKEN.getPhoneNumberStatus());
-
     }
 }

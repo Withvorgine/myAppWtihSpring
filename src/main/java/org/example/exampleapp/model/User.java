@@ -48,7 +48,7 @@ public class User {
 
     public void generateId (){
         Random rand = new Random();
-        int j = rand.nextInt(1000000,100000000);
+        int j = rand.nextInt(10000000,100000000);
         String customerStartLetter  = "C";
         this.id = customerStartLetter + j;
         System.out.println(this.id);

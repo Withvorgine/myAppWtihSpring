@@ -28,8 +28,6 @@ public class BankAccountService {
                 .amount(0)
                 .build();
 
-
-
         switch (country.toLowerCase()){
             case "turkey":
                 bankAccountModel.generateIban(Country.TURKEY.getAbbreviation());
