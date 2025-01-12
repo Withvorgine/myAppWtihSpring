@@ -24,8 +24,8 @@ public class PhoneNumberService {
     private final PhoneNumberRepository phoneNumberRepository;
     public PhoneNumberCreateResponse createPhoneNumber(PhoneNumberCreateRequest phoneNumberCreateRequest) {
 
-        String validatePhoneNumber = validatePhoneNumber(phoneNumberCreateRequest);
-        System.out.println(validatePhoneNumber);
+        validatePhoneNumber(phoneNumberCreateRequest);
+
         PhoneNumberModel phoneNumber = getPhoneNumberModel(phoneNumberCreateRequest);
         switch (phoneNumber.getCountryName()){
             case "TR" :
@@ -60,7 +60,7 @@ public class PhoneNumberService {
         return phoneNumberCreateResponse;
     }
 
-    public String validatePhoneNumber(PhoneNumberCreateRequest phoneNumberCreateRequest) {
+    public void validatePhoneNumber(PhoneNumberCreateRequest phoneNumberCreateRequest) {
         PhoneNumberValidateResponse phoneNumberValidateResponse = new PhoneNumberValidateResponse();
         PhoneNumberModel phoneNumberRecord = phoneNumberRepository.findByPhoneNumber(phoneNumberCreateRequest.getPhoneNumber());
         if (!ObjectUtils.isEmpty(phoneNumberRecord)) {
@@ -68,7 +68,6 @@ public class PhoneNumberService {
 
         }
         phoneNumberValidateResponse.setError("Validation successful you can add your phone number into the database: " + phoneNumberCreateRequest.getPhoneNumber());
-        return phoneNumberValidateResponse.getError();
     }
 
     public boolean validatePhoneNumberIfExistInDB(String phoneNumber) {

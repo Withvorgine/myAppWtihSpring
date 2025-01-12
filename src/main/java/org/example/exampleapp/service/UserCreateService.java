@@ -21,6 +21,7 @@ public class UserCreateService {
     private final BankAccountService bankAccountService;
     private final PhoneNumberService phoneNumberService;
     private final EmailService emailService;
+    private final IdentificationNumberService identificationNumberService;
 
     public UserModelResponse createUser(UserModelRequest request) {
 
@@ -32,7 +33,14 @@ public class UserCreateService {
                 .phoneNo(request.getPhoneNo())
                 .country(request.getCountry())
                 .createdDate(new Date())
+                .identificationNumber(request.getIdentificationNumber())
                 .build();
+
+
+        Boolean isIdentificationNumberExist = identificationNumberService.validateIdentificationNumber(request.getIdentificationNumber());
+        if (!isIdentificationNumberExist) {
+            throw new RuntimeException("Invalid identification number");
+        }
 
         boolean phoneNumberValidate = phoneNumberService.validatePhoneNumberIfExistInDB(request.getPhoneNo());
         boolean isPhoneNumberAvailable = phoneNumberService.validatePhoneNumberIfAvailable(request.getPhoneNo());

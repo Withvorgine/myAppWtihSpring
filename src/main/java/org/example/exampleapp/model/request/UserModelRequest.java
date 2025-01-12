@@ -14,4 +14,5 @@ public class UserModelRequest {
     private String phoneNo;
     private String bankAccountNumber;
     private String country;
+    private String identificationNumber;
 }

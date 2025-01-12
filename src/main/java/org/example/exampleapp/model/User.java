@@ -42,6 +42,9 @@ public class User {
     @Column(name = "created_date")
     public Date createdDate;
 
+    @Column(name = "identificationNumber")
+    public String identificationNumber;
+
     public void generateBankAccountNumber() {
         this.bankAccountNumber = UUID.randomUUID().toString();
     }
@@ -52,5 +55,9 @@ public class User {
         String customerStartLetter  = "C";
         this.id = customerStartLetter + j;
         System.out.println(this.id);
+    }
+
+    private String trim(String value){
+        return value.trim();
     }
 }

@@ -20,12 +20,8 @@ public class PhoneNumberController {
 
     @PostMapping("/createPhoneNumber")
     public ResponseEntity<PhoneNumberCreateResponse> createPhoneNumber(@RequestBody PhoneNumberCreateRequest request) {
-        try {
-            PhoneNumberCreateResponse response = phoneNumberService.createPhoneNumber(request);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } catch (RuntimeException e) {
-           throw  e;
-        }
+        PhoneNumberCreateResponse response = phoneNumberService.createPhoneNumber(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
 
     }
 
