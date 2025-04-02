@@ -6,10 +6,7 @@ import org.example.exampleapp.model.IdentificationNumberModel;
 import org.example.exampleapp.repository.IdentificationNumberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -32,8 +29,8 @@ public class IdentificationNumberService {
     }
 
     public Boolean validateIdentificationNumber(String identificationNumber) {
-
         IdentificationNumberModel identificationNumberModel = identificationNumberRepository.findByIdentificationNumber(identificationNumber);
         return !ObjectUtils.isEmpty(identificationNumberModel);
     }
+
 }

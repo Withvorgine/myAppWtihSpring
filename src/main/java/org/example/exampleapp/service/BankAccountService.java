@@ -45,7 +45,7 @@ public class BankAccountService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        log.warn("Bank account created with Id: {}", bankAccountId);
+        log.info("Bank account created with Id: {}", bankAccountId);
         return new BankAccountResponse();
     }
 }

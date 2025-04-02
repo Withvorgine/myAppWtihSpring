@@ -5,7 +5,7 @@ import org.example.exampleapp.model.User;
 import org.example.exampleapp.model.request.UserModelRequest;
 import org.example.exampleapp.model.response.UserModelResponse;
 import org.example.exampleapp.repository.UserRepository;
-import org.example.exampleapp.service.UserCreateService;
+import org.example.exampleapp.service.CustomerCreateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +14,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-public class UserController {
+public class CustomerController {
 
-    private final UserCreateService userCreateService;
+    private final CustomerCreateService customerCreateService;
     private final UserRepository userRepository;
 
     @PostMapping("/api/createUser")
     public ResponseEntity<UserModelResponse> createUser(@RequestBody UserModelRequest request) {
-        UserModelResponse response = userCreateService.createUser(request);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        try {
+            UserModelResponse response = customerCreateService.createUser(request);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
 
     @GetMapping(value = "{id}", produces = {"application/json;charset=utf-8"})

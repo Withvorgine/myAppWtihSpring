@@ -15,7 +15,7 @@ import java.util.Date;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserCreateService {
+public class CustomerCreateService {
 
     private final UserRepository userRepository;
     private final BankAccountService bankAccountService;
@@ -35,7 +35,6 @@ public class UserCreateService {
                 .createdDate(new Date())
                 .identificationNumber(request.getIdentificationNumber())
                 .build();
-
 
         Boolean isIdentificationNumberExist = identificationNumberService.validateIdentificationNumber(request.getIdentificationNumber());
         if (!isIdentificationNumberExist) {
