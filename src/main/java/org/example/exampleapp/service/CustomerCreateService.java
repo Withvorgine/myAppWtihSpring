@@ -23,7 +23,7 @@ public class CustomerCreateService {
     private final EmailService emailService;
     private final IdentificationNumberService identificationNumberService;
 
-    public UserModelResponse createUser(UserModelRequest request) {
+    public UserModelResponse createCustomer(UserModelRequest request) {
 
         User user = User.builder()
                 .name(request.getName())

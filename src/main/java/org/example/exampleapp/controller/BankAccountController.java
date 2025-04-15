@@ -3,7 +3,9 @@ package org.example.exampleapp.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.exampleapp.model.BankAccountModel;
 import org.example.exampleapp.model.User;
+import org.example.exampleapp.model.request.TransferRequest;
 import org.example.exampleapp.model.response.BankAccountResponse;
+import org.example.exampleapp.model.response.TransferResponse;
 import org.example.exampleapp.repository.BankAccountRepository;
 import org.example.exampleapp.service.BankAccountService;
 import org.springframework.http.HttpStatus;
@@ -27,5 +29,11 @@ public class BankAccountController {
     @GetMapping(value = "findBankAccount/{findBankAccountId}", produces = {"application/json;charset=utf-8"})
     public ResponseEntity<BankAccountModel> getBankAccount(@PathVariable("findBankAccountId") String id)  {
         return new ResponseEntity<>(accountRepository.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<TransferResponse> transfer(@RequestBody TransferRequest transferRequest) {
+        TransferResponse transfer = bankAccountService.transfer(transferRequest);
+        return new ResponseEntity<>(transfer, HttpStatus.OK);
     }
 }

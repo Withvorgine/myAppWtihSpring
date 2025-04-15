@@ -20,9 +20,9 @@ public class CustomerController {
     private final UserRepository userRepository;
 
     @PostMapping("/api/createUser")
-    public ResponseEntity<UserModelResponse> createUser(@RequestBody UserModelRequest request) {
+    public ResponseEntity<UserModelResponse> createCustomer(@RequestBody UserModelRequest request) {
         try {
-            UserModelResponse response = customerCreateService.createUser(request);
+            UserModelResponse response = customerCreateService.createCustomer(request);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (RuntimeException e) {
             throw new RuntimeException(e.getMessage());

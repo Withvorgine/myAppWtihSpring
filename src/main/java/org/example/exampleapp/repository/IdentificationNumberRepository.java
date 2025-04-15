@@ -2,16 +2,21 @@ package org.example.exampleapp.repository;
 
 
 import lombok.NonNull;
-import org.example.exampleapp.model.IdentificationNumberModel;
+import org.example.exampleapp.model.IdentityCard;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.http.ResponseEntity;
 
 
+import java.util.List;
 import java.util.Optional;
 
-public interface IdentificationNumberRepository extends MongoRepository<IdentificationNumberModel,String> {
-    IdentificationNumberModel findByIdentificationNumber(String identificationNumber);
+public interface IdentificationNumberRepository extends MongoRepository<IdentityCard,String> {
+    IdentityCard findByIdentificationNumber(String identificationNumber);
 
     @NonNull
-    Optional<IdentificationNumberModel> findById(String id);
+    Optional<IdentityCard> findById(String id);
+
+    List<IdentityCard> findByName(String name, Sort sort);
 
 }

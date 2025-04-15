@@ -3,7 +3,7 @@ spring:
     name: exampleApp
   datasource:
     username: postgres
-    password: postgres123
+    password: postgres
     url: jdbc:postgresql://localhost:5432/postgres
   jpa:
     hibernate:
@@ -11,9 +11,17 @@ spring:
     show-sql: true
   profiles:
     active: dev
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  data:
+    mongodb:
+      database: identity
+  security:
+    user:
+      name: admin
+      password: admin123
 
 server:
   port: 8080
 
+aws:
+  accessKeyId: AKIAZ24ISVUHQCAOKGOA
+  secretKey: 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
