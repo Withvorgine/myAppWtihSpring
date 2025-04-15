@@ -23,5 +23,5 @@ server:
   port: 8080
 
 aws:
-  accessKeyId: AKIAZ24ISVUHQCAOKGOA
-  secretKey: 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
+  accessKeyId: accessKeyId
+  secretKey: secretKey

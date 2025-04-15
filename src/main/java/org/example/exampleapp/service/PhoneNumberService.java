@@ -10,12 +10,10 @@ import org.example.exampleapp.model.response.PhoneNumberCreateResponse;
 import org.example.exampleapp.model.response.PhoneNumberValidateResponse;
 import org.example.exampleapp.repository.PhoneNumberRepository;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Service

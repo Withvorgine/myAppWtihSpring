@@ -2,7 +2,6 @@ package org.example.exampleapp.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.exampleapp.model.UserCredentials;
-import org.example.exampleapp.model.response.AuthVerifyResponse;
 import org.example.exampleapp.service.UserDetailService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
